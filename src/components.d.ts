@@ -12,10 +12,14 @@ declare module 'vue' {
     CostTable: typeof import('./components/CostTable.vue')['default']
     DefaultCostInfo: typeof import('./components/CostInfo/DefaultCostInfo.vue')['default']
     DefaultCostTable: typeof import('./components/CostTables/DefaultCostTable.vue')['default']
+    Dialog: typeof import('./components/Dialog.vue')['default']
+    GlobalDialog: typeof import('./components/GlobalDialog.vue')['default']
+    NestedDialogContent: typeof import('./components/NestedDialogContent.vue')['default']
     PlanePartCostInfo: typeof import('./components/CostInfo/PlanePartCostInfo.vue')['default']
     PlanePartTable: typeof import('./components/CostTables/PlanePartTable.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SampleDialogContent: typeof import('./components/SampleDialogContent.vue')['default']
     Testing: typeof import('./components/Testing.vue')['default']
   }
 }
