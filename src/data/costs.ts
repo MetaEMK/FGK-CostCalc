@@ -1,4 +1,5 @@
 export interface Costs {
+    id?: number,
     name: string,
     type: CostType,
     description?: string,

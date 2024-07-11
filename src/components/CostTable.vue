@@ -13,6 +13,7 @@
             </thead>
             <tbody>
                 <tr v-for="item in props.costs" :key="item.name">
+                    <td> {{ item.id }}</td>
                     <td>{{ item.name }}</td>
                     <td>{{ item.costValue }}</td>
                     <td class="buttonContainer">

@@ -6,42 +6,50 @@ export const useCostStore = defineStore("cost", () => {
     const plane = ref<Plane>()
     const allCosts = ref<Costs[]>([])
 
+    let idIndex = 0
+
     const planeParts = computed(() => allCosts.value.filter(e => e.type === CostType.PLANE_PART_COST))
     const perHourCosts = computed(() => allCosts.value.filter(e => e.type === CostType.PER_HOUR_COST))
     const perDepartureCosts = computed(() => allCosts.value.filter(e => e.type === CostType.PER_DEPARTURE_COST))
     const perYearCosts = computed(() => allCosts.value.filter(e => e.type === CostType.PER_YEAR_COST))
 
-    function checkIfCostNameIsUnique(name: string, type: CostType): boolean {
-        const costs = allCosts.value.filter(el => el.name === name && el.type === type)
-        return costs.length === 0
-    }
 
     function addPerHourCost(cost: PerHourCost) {
         cost.type = CostType.PER_HOUR_COST
-        if (checkIfCostNameIsUnique(cost.name, cost.type))
-            allCosts.value.push(cost)
+        cost.id = idIndex
+        idIndex++
+        allCosts.value.push(cost)
     }
 
     function addPerYearCost(cost: PerYearCost) {
         cost.type = CostType.PER_YEAR_COST
-        if (checkIfCostNameIsUnique(cost.name, cost.type))
-            allCosts.value.push(cost)
+        cost.id = idIndex
+        idIndex++
+        allCosts.value.push(cost)
     }
 
     function addPerDepartureCost(cost: PerDepartureCost) {
         cost.type = CostType.PER_DEPARTURE_COST
-        if (checkIfCostNameIsUnique(cost.name, cost.type))
-            allCosts.value.push(cost)
+        cost.id = idIndex
+        idIndex++
+        allCosts.value.push(cost)
     }
 
     function addPlanePart(cost: PlaneParts) {
         cost.type = CostType.PLANE_PART_COST
-        if (checkIfCostNameIsUnique(cost.name, cost.type))
-            allCosts.value.push(cost)
+        cost.id = idIndex
+        idIndex++
+        allCosts.value.push(cost)
+    }
+
+    function createCost(cost: Costs) {
+        cost.id = idIndex
+        idIndex++
+        allCosts.value.push(cost)
     }
 
     function removeCost(cost: Costs) {
-        allCosts.value = allCosts.value.filter(el => (el.name != cost.name && el.type === cost.type) || el.type !== cost.type)
+        allCosts.value = allCosts.value.filter(el => el.id != cost.id)
     }
 
     function seedStore() {
@@ -62,7 +70,7 @@ export const useCostStore = defineStore("cost", () => {
         }
     }
 
-    return { plane, planeParts, perHourCosts, perDepartureCosts, perYearCosts, seedStore, removeCost }
+    return { plane, planeParts, createCost, perHourCosts, perDepartureCosts, perYearCosts, seedStore, removeCost }
 })
 
 function createDummyCost(i: Number): Costs {

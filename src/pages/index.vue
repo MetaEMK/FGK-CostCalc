@@ -9,6 +9,14 @@
     </p>
   </div>
 
+
+  <div>
+    <router-link to="/costinfo">
+      <v-btn color="primary">Go to Info Page</v-btn>
+    </router-link>
+  </div>
+
+
   <v-divider></v-divider>
 
   <div class="costContainer">
@@ -36,7 +44,6 @@
 
 <script lang="ts" setup>
 import { useCostStore } from '@/stores/cost.store';
-
 
 const costStore = useCostStore()
 onMounted(() => {
