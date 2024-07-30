@@ -70,7 +70,7 @@ export const useCostStore = defineStore("cost", () => {
         }
     }
 
-    return { plane, planeParts, createCost, perHourCosts, perDepartureCosts, perYearCosts, seedStore, removeCost }
+    return { allCosts, plane, planeParts, createCost, perHourCosts, perDepartureCosts, perYearCosts, seedStore, removeCost }
 })
 
 function createDummyCost(i: Number): Costs {

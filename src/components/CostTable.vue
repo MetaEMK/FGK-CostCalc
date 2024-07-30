@@ -7,15 +7,17 @@
                         Name
                     </th>
                     <th class="text-right">
-                        Kostenwert
+                        €
+                    </th>
+                    <th class="text-left">
+                        Aktionen
                     </th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="item in props.costs" :key="item.name">
-                    <td> {{ item.id }}</td>
-                    <td>{{ item.name }}</td>
-                    <td>{{ item.costValue }}</td>
+                    <td class="text-left">{{ item.name }}</td>
+                    <td class="text-center">{{ item.costValue }}</td>
                     <td class="buttonContainer">
                         <v-btn variant="plain" density="compact" icon="mdi-delete" @click="askForDelete(item)"></v-btn>
                         <v-btn variant="plain" density="compact" icon="mdi-information"></v-btn>
@@ -35,7 +37,7 @@
         <p class="text-subtitle-1">Willst du den Kostenpunkt: <strong>{{ deleteItem?.name }}</strong> wirklich löschen?</p>
       </v-card-text>
       <v-card-actions class="justify-end">
-        <v-btn color="grey" text @click="deleteDialog = false; deleteItem = undefined">Nein</v-btn>
+        <v-btn color="grey" @click="deleteDialog = false; deleteItem = undefined">Nein</v-btn>
         <v-btn color="red" dark @click="deleteConfirmed()">Ja</v-btn>
       </v-card-actions>
     </v-card>
