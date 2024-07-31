@@ -63,8 +63,5 @@ onMounted(() => {
     registration: "D-MFGK",
     model: "Dynamic WT9"
   };
-
-  if (costStore.allCosts.length === 0)
-    costStore.seedStore();
 });
 </script>

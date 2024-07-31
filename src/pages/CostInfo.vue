@@ -2,7 +2,7 @@
   <v-container class="my-5">
     <v-card>
       <v-card-title>
-        <h1>{{ isNew ? 'Create New Cost' : 'Edit Cost ' + props.cost?.name }}</h1>
+        <h1>{{ !formData.id ? 'Create New Cost' : 'Edit Cost ' + formData.name }}</h1>
       </v-card-title>
       <v-card-text>
         <v-form @submit.prevent="handleSubmit">
@@ -68,6 +68,7 @@
 import { ref, watch } from 'vue';
 import { Costs, CostType } from '@/data/costs'; // Import your types
 import { useCostStore } from '@/stores/cost.store';
+import router from '@/router';
 
 const costStore = useCostStore();
 const props = defineProps<{ cost: Costs | null }>();
@@ -79,10 +80,10 @@ const typeInfo = [
   { state: "TODO PlanePart", type: CostType.PLANE_PART_COST }
 ];
 
-const isNew = ref(!props.cost);
+const route = useRoute()
 const selectedType = ref(typeInfo[0]);
 
-const formData = ref<Costs>(props.cost || {
+const formData = ref<Costs>({
   name: '',
   type: selectedType.value.type,
   description: '',
@@ -93,6 +94,21 @@ watch(selectedType, (newValue) => {
   formData.value.type = newValue.type;
 });
 
+onMounted(() => {
+  let c: Costs|undefined
+  const id = route.params.id
+
+  if (id) {
+    c = costStore.getCostById(id)
+  } else if (props.cost?.id) {
+    c = costStore.getCostById(props.cost.id)
+  }
+
+  if (c) {
+    Object.assign(formData.value, c)
+  }
+})
+
 const handleSubmit = () => {
   const newCost: Costs = {
     id: formData.value.id,
@@ -102,12 +118,13 @@ const handleSubmit = () => {
     costValue: formData.value.costValue,
   };
 
-  if (isNew.value) {
+  if (!formData.value.id) {
     costStore.createCost(newCost);
-    console.log('Creating new cost:', newCost);
   } else {
+    costStore.updateCost(formData.value.id, formData.value)
     console.log('Updating cost:', formData.value);
   }
+  router.back()
 };
 
 const validateNumberInput = (event: Event) => {

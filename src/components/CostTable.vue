@@ -17,10 +17,12 @@
             <tbody>
                 <tr v-for="item in props.costs" :key="item.name">
                     <td class="text-left">{{ item.name }}</td>
-                    <td class="text-center">{{ item.costValue }}</td>
+                    <td class="text-right">{{ item.costValue }}</td>
                     <td class="buttonContainer">
                         <v-btn variant="plain" density="compact" icon="mdi-delete" @click="askForDelete(item)"></v-btn>
-                        <v-btn variant="plain" density="compact" icon="mdi-information"></v-btn>
+                        <router-link :to="'/CostInfo/'+ item.id">
+                            <v-btn variant="plain" density="compact" icon="mdi-information"></v-btn>
+                        </router-link>
                     </td>
                 </tr>
             </tbody>

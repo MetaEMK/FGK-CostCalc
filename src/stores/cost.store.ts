@@ -6,7 +6,7 @@ export const useCostStore = defineStore("cost", () => {
     const plane = ref<Plane>()
     const allCosts = ref<Costs[]>([])
 
-    let idIndex = 0
+    let idIndex = 1
 
     const planeParts = computed(() => allCosts.value.filter(e => e.type === CostType.PLANE_PART_COST))
     const perHourCosts = computed(() => allCosts.value.filter(e => e.type === CostType.PER_HOUR_COST))
@@ -48,11 +48,20 @@ export const useCostStore = defineStore("cost", () => {
         allCosts.value.push(cost)
     }
 
+    function updateCost(id: number, cost: Costs) {
+        let oldCostRef = getCostById(id)
+        if (oldCostRef) {
+            oldCostRef.id = id
+            Object.assign(oldCostRef, cost)
+        }
+    }
+
     function removeCost(cost: Costs) {
         allCosts.value = allCosts.value.filter(el => el.id != cost.id)
     }
 
     function seedStore() {
+        console.log("seeding")
         let p: PlaneParts = {
             name: "DummyKostenPunkt",
             description: "Dieser Punkt ist nur ein dummy",
@@ -70,7 +79,12 @@ export const useCostStore = defineStore("cost", () => {
         }
     }
 
-    return { allCosts, plane, planeParts, createCost, perHourCosts, perDepartureCosts, perYearCosts, seedStore, removeCost }
+    function getCostById(id: number): Costs|undefined {
+        return allCosts.value.find(el => el.id == id)
+    }
+
+    seedStore()
+    return { allCosts, getCostById, plane, planeParts, createCost, updateCost, perHourCosts, perDepartureCosts, perYearCosts, removeCost }
 })
 
 function createDummyCost(i: Number): Costs {
