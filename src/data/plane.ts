@@ -1,4 +1,9 @@
 export interface Plane {
-    registration: string, 
+    registration: string,
     model: string,
+
+    /**
+     * expected flight hours per year
+     */
+    expectedFlightTime: number,
 }

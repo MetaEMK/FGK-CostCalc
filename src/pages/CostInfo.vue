@@ -1,5 +1,5 @@
 <template>
-  <v-container class="my-5">
+  <v-container>
     <v-card>
       <v-card-title>
         <h1>{{ !formData.id ? 'Create New Cost' : 'Edit Cost ' + formData.name }}</h1>
@@ -8,38 +8,32 @@
         <v-form @submit.prevent="handleSubmit">
           <v-row>
             <v-col cols="12" md="6">
-              <v-text-field 
-                v-model="formData.name" 
-                label="Name" 
-                required 
-              />
+              <v-text-field v-model="formData.name" label="Name" required />
             </v-col>
             <v-col cols="12" md="6">
-              <v-select 
-                v-model="selectedType" 
-                :items="typeInfo" 
-                item-title="state" 
-                return-object 
-                label="Type" 
-                required 
-              />
+              <v-select v-model="selectedType" :items="typeInfo" item-title="state" return-object label="Type"
+                required />
             </v-col>
             <v-col cols="12">
-              <v-textarea 
-                v-model="formData.description" 
-                label="Description" 
-              />
+              <v-textarea v-model="formData.description" label="Description" />
             </v-col>
             <v-col cols="12" md="6">
-              <v-text-field 
-                v-model="formData.costValue" 
-                type="number" 
-                label="Cost Value" 
-                required 
-                @input="validateNumberInput" 
-                inputmode="numeric" 
-              />
+              <v-text-field v-model="formData.costValue" type="number" label="Cost Value" required
+                @input="validateNumberInput" inputmode="numeric" />
             </v-col>
+          </v-row>
+          <v-row>
+            <v-container  v-if="selectedType.type === CostType.PLANE_PART_COST">
+              <h3>Spezialfelder</h3>
+              <v-col cols="12" md="6">
+                <v-text-field v-model="formData.tbo" type="number" label="TBO in Stunden" required
+                  inputmode="numeric" />
+              </v-col>
+              <v-col cols="12" md="6">
+                <v-text-field v-model="formData.maxYears" type="number" label="maximale Laufzeit in Jahren" required
+                   inputmode="numeric" />
+              </v-col>
+            </v-container>
           </v-row>
           <v-card-actions>
             <v-btn color="primary" type="submit">Save</v-btn>
@@ -51,6 +45,7 @@
       </v-card-text>
     </v-card>
   </v-container>
+  DEBUG: {{ formData }}
 </template>
 
 <style scoped>
@@ -66,7 +61,7 @@
 
 <script setup lang="ts">
 import { ref, watch } from 'vue';
-import { Costs, CostType } from '@/data/costs'; // Import your types
+import { Costs, CostType, PlaneParts } from '@/data/costs'; // Import your types
 import { useCostStore } from '@/stores/cost.store';
 import router from '@/router';
 
@@ -76,14 +71,13 @@ const props = defineProps<{ cost: Costs | null }>();
 const typeInfo = [
   { state: "Pro Jahr", type: CostType.PER_YEAR_COST },
   { state: "Pro Flugstunde", type: CostType.PER_HOUR_COST },
-  { state: "Pro Start", type: CostType.PER_DEPARTURE_COST },
   { state: "TODO PlanePart", type: CostType.PLANE_PART_COST }
 ];
 
 const route = useRoute()
 const selectedType = ref(typeInfo[0]);
 
-const formData = ref<Costs>({
+const formData = ref<Costs|PlaneParts>({
   name: '',
   type: selectedType.value.type,
   description: '',
@@ -95,7 +89,7 @@ watch(selectedType, (newValue) => {
 });
 
 onMounted(() => {
-  let c: Costs|undefined
+  let c: Costs | undefined
   const id = route.params.id
 
   if (id) {
@@ -106,20 +100,17 @@ onMounted(() => {
 
   if (c) {
     Object.assign(formData.value, c)
+    typeInfo.forEach(t => {
+      if (t.type === c.type) {
+        selectedType.value = t
+      }
+    })
   }
 })
 
 const handleSubmit = () => {
-  const newCost: Costs = {
-    id: formData.value.id,
-    name: formData.value.name,
-    type: formData.value.type,
-    description: formData.value.description,
-    costValue: formData.value.costValue,
-  };
-
   if (!formData.value.id) {
-    costStore.createCost(newCost);
+    costStore.createCost(formData.value);
   } else {
     costStore.updateCost(formData.value.id, formData.value)
     console.log('Updating cost:', formData.value);

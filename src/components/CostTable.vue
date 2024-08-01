@@ -9,7 +9,7 @@
                     <th class="text-right">
                         €
                     </th>
-                    <th class="text-left">
+                    <th class="text-right">
                         Aktionen
                     </th>
                 </tr>
@@ -18,9 +18,9 @@
                 <tr v-for="item in props.costs" :key="item.name">
                     <td class="text-left">{{ item.name }}</td>
                     <td class="text-right">{{ item.costValue }}</td>
-                    <td class="buttonContainer">
+                    <td class="text-right">
                         <v-btn variant="plain" density="compact" icon="mdi-delete" @click="askForDelete(item)"></v-btn>
-                        <router-link :to="'/CostInfo/'+ item.id">
+                        <router-link :to="'/CostInfo/' + item.id">
                             <v-btn variant="plain" density="compact" icon="mdi-information"></v-btn>
                         </router-link>
                     </td>
@@ -29,21 +29,22 @@
         </v-table>
     </div>
 
-  <v-dialog v-model="deleteDialog" width="500">
-    <v-card>
-      <v-card-title class="headline" primary-title>
-        <span>Item löschen?</span>
-      </v-card-title>
-      <v-divider></v-divider>
-      <v-card-text>
-        <p class="text-subtitle-1">Willst du den Kostenpunkt: <strong>{{ deleteItem?.name }}</strong> wirklich löschen?</p>
-      </v-card-text>
-      <v-card-actions class="justify-end">
-        <v-btn color="grey" @click="deleteDialog = false; deleteItem = undefined">Nein</v-btn>
-        <v-btn color="red" dark @click="deleteConfirmed()">Ja</v-btn>
-      </v-card-actions>
-    </v-card>
-  </v-dialog>
+    <v-dialog v-model="deleteDialog" width="500">
+        <v-card>
+            <v-card-title class="headline" primary-title>
+                <span>Item löschen?</span>
+            </v-card-title>
+            <v-divider></v-divider>
+            <v-card-text>
+                <p class="text-subtitle-1">Willst du den Kostenpunkt: <strong>{{ deleteItem?.name }}</strong> wirklich
+                    löschen?</p>
+            </v-card-text>
+            <v-card-actions class="justify-end">
+                <v-btn color="grey" @click="deleteDialog = false; deleteItem = undefined">Nein</v-btn>
+                <v-btn color="red" dark @click="deleteConfirmed()">Ja</v-btn>
+            </v-card-actions>
+        </v-card>
+    </v-dialog>
 </template>
 
 <style scoped>
