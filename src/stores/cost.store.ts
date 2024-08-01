@@ -1,9 +1,13 @@
-import { CostType, Costs, PerHourCost, PerYearCost, PlaneParts } from "@/data/costs";
+import { CostType, Costs, PlaneParts } from "@/data/costs";
 import { Plane } from "@/data/plane";
 import { defineStore } from "pinia";
 
 export const useCostStore = defineStore("cost", () => {
-    const plane = ref<Plane>()
+    const plane = ref<Plane>({
+        model: "",
+        registration: "",
+        expectedFlightTime: 1
+    })
     const allCosts = ref<Costs[]>([])
 
     let idIndex = 1

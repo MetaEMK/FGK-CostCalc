@@ -1,62 +1,60 @@
 <template>
-  <v-container class="my-5">
-    <v-card>
-      <v-card-title class="text-h5">
+  <v-container>
+    <v-card style="padding: 20px;">
+      <h1>
         Kostenrechner: {{ costStore.plane?.model }}: {{ costStore.plane?.registration }}
-      </v-card-title>
+      </h1>
       <v-card-text>
         <v-row>
-          <v-col cols="12">
-            <v-alert type="info" outlined>
-              {{ costStore.calcPerYearCosts + costStore.calcPerHourCosts + costStore.calcPlanePartCosts }}
-            </v-alert>
-          </v-col>
-          <v-col cols="12" class="text-center">
-            <router-link to="/costinfo">
-              <v-btn color="primary">Go to Info Page</v-btn>
-            </router-link>
-          </v-col>
+          <plane-info></plane-info>
+        </v-row>
+        <v-row>
+          <calc-cost-info></calc-cost-info>
         </v-row>
         <v-divider class="my-4"></v-divider>
         <v-row class="costContainer" justify="center">
-          <v-col cols="12" md="6" class="d-flex">
-            <v-card class="ma-2 flex-grow-1" outlined>
+          <v-col :lg="lgValue" :md="mdValue" class="d-flex">
+            <v-card  class="ma-2 flex-grow-1" outlined>
               <v-card-title>Kosten: Pro Stunde</v-card-title>
               <cost-table :costs="costStore.perHourCosts"></cost-table>
             </v-card>
           </v-col>
-          <v-col cols="12" md="6" class="d-flex">
+          <v-col :lg="lgValue" :md="mdValue" class="d-flex">
             <v-card class="ma-2 flex-grow-1" outlined>
               <v-card-title>Kosten: Pro TODO PlanePart</v-card-title>
               <cost-table :costs="costStore.planeParts"></cost-table>
             </v-card>
           </v-col>
-          <v-col cols="12" md="6" class="d-flex">
+          <v-col :lg="lgValue" :md="mdValue" class="d-flex">
             <v-card class="ma-2 flex-grow-1" outlined>
               <v-card-title>Kosten: Pro Jahr</v-card-title>
               <cost-table :costs="costStore.perYearCosts"></cost-table>
             </v-card>
           </v-col>
         </v-row>
+        <div class="text-right my-4">
+          <router-link to="/costinfo">
+            <v-btn icon color="primary">
+              <v-icon>mdi-plus</v-icon>
+            </v-btn>
+          </router-link>
+        </div>
       </v-card-text>
     </v-card>
   </v-container>
 </template>
 
 <style scoped>
+.text-right {
+  text-align: right;
+}
 </style>
 
 <script lang="ts" setup>
-import { onMounted } from 'vue';
 import { useCostStore } from '@/stores/cost.store';
 
-const costStore = useCostStore();
+const mdValue = 8
+const lgValue = 4
 
-onMounted(() => {
-  costStore.plane = {
-    registration: "D-MFGK",
-    model: "Dynamic WT9",
-    expectedFlightTime: 120,
-  };
-});
+const costStore = useCostStore();
 </script>

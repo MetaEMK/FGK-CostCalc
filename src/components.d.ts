@@ -8,6 +8,7 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     Blubb: typeof import('./components/Blubb.vue')['default']
+    CalcCostInfo: typeof import('./components/CalcCostInfo.vue')['default']
     Cost: typeof import('./components/Cost.vue')['default']
     CostInfo: typeof import('./components/CostInfo.vue')['default']
     CostTable: typeof import('./components/CostTable.vue')['default']
@@ -16,6 +17,7 @@ declare module 'vue' {
     DefaultCostTable: typeof import('./components/CostTables/DefaultCostTable.vue')['default']
     Dialog: typeof import('./components/Dialog.vue')['default']
     GlobalDialog: typeof import('./components/GlobalDialog.vue')['default']
+    PlaneInfo: typeof import('./components/PlaneInfo.vue')['default']
     PlanePartCostInfo: typeof import('./components/CostInfo/PlanePartCostInfo.vue')['default']
     PlanePartTable: typeof import('./components/CostTables/PlanePartTable.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
