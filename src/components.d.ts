@@ -13,6 +13,7 @@ declare module 'vue' {
     CostInfo: typeof import('./components/CostInfo.vue')['default']
     CostTable: typeof import('./components/CostTable.vue')['default']
     CustomSmallDialog: typeof import('./components/CustomSmallDialog.vue')['default']
+    DataImportExport: typeof import('./components/DataImportExport.vue')['default']
     DefaultCostInfo: typeof import('./components/CostInfo/DefaultCostInfo.vue')['default']
     DefaultCostTable: typeof import('./components/CostTables/DefaultCostTable.vue')['default']
     Dialog: typeof import('./components/Dialog.vue')['default']
