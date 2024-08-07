@@ -22,6 +22,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 import { useCostStore } from '@/stores/cost.store';
+import { formatCurrency } from '@/composables/concurrency.formatter';
 
 const costStore = useCostStore();
 
@@ -34,16 +35,9 @@ const perHourPrice = computed(() => {
         costs = costs + costStore.calcPerYearCosts
 
     if (costStore.calcPlanePartCosts)
-        costs = costs + costStore.calcPlanePartCosts
+        costs = costs + costStore.calcPerHourCosts
 
     return costs;
 });
 
-const formatCurrency = (value: number) => {
-    return new Intl.NumberFormat('de-DE', {
-        style: 'decimal',
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-    }).format(value);
-};
 </script>

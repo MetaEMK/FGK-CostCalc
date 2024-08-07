@@ -17,7 +17,7 @@
             <tbody>
                 <tr v-for="item in props.costs" :key="item.name">
                     <td class="text-left">{{ item.name }}</td>
-                    <td class="text-right">{{ item.costValue }}</td>
+                    <td class="text-right">{{ formatCurrency(item.costValue) }}</td>
                     <td class="text-right">
                         <v-btn variant="plain" density="compact" icon="mdi-delete" @click="askForDelete(item)"></v-btn>
                         <router-link :to="'/CostInfo/' + item.id">
@@ -56,6 +56,7 @@
 </style>
 
 <script lang="ts" setup>
+import { formatCurrency } from '@/composables/concurrency.formatter';
 import { Costs } from '@/data/costs';
 import { useCostStore } from '@/stores/cost.store';
 import { PropType } from 'vue';
