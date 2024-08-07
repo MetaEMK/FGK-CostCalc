@@ -1,6 +1,6 @@
 # Allgemeine Beschreibung des Kostenrechners
-> **Note*
-Dieses Tool befindet sich aktuell noch in Entwicklung.
+> [!NOTE]
+> Dieses Tool befindet sich aktuell noch in Entwicklung.
 
 Der Kostenrechner ist ein Tool zur Berechnung und Verwaltung der Betriebskosten eines Flugzeugs.
 Es hilft dabei, die verschiedenen Kostenarten zu erfassen und die Gesamtkosten pro Flugstunde zu berechnen.
