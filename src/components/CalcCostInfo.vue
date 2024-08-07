@@ -34,7 +34,7 @@ const perHourPrice = computed(() => {
         costs = costs + costStore.calcPerYearCosts
 
     if (costStore.calcPlanePartCosts)
-        costs = costs + costStore.calcPerHourCosts
+        costs = costs + costStore.calcPlanePartCosts
 
     return costs;
 });
