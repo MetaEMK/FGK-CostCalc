@@ -23,7 +23,7 @@
           </v-col>
           <v-col :lg="lgValue" :md="mdValue" class="d-flex">
             <v-card class="ma-2 flex-grow-1" outlined>
-              <v-card-title>Kosten: Pro TODO PlanePart</v-card-title>
+              <v-card-title>Kosten: Pro PlanePart</v-card-title>
               <cost-table :costs="costStore.planeParts"></cost-table>
             </v-card>
           </v-col>
@@ -34,7 +34,7 @@
             </v-card>
           </v-col>
         </v-row>
-        <v-row justify="space-between" align="center" class="my-4">
+        <v-row justify="space-between" class="my-4">
           <div>
             <data-import-export></data-import-export>
           </div>

@@ -81,7 +81,7 @@ const props = defineProps<{ cost: Costs | null }>();
 const typeInfo = [
   { state: "Pro Jahr", type: CostType.PER_YEAR_COST },
   { state: "Pro Flugstunde", type: CostType.PER_HOUR_COST },
-  { state: "TODO PlanePart", type: CostType.PLANE_PART_COST }
+  { state: "PlanePart", type: CostType.PLANE_PART_COST }
 ];
 
 const route = useRoute();

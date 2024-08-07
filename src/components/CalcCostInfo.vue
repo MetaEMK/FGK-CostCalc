@@ -28,15 +28,21 @@ const costStore = useCostStore();
 
 const perHourPrice = computed(() => {
     let costs: number = 0;
-    if (costStore.calcPerHourCosts)
-        costs = costs + costStore.calcPerHourCosts
+    if (costStore.calcPerHourCosts > 0) {
+        costs = costs + Number(costStore.calcPerHourCosts)
+    }
+    console.log(costs)
 
-    if (costStore.calcPerYearCosts)
-        costs = costs + costStore.calcPerYearCosts
+    if (costStore.calcPerYearCosts > 0) {
+        costs = costs + Number(costStore.calcPerYearCosts)
+    }
 
-    if (costStore.calcPlanePartCosts)
-        costs = costs + costStore.calcPerHourCosts
+    console.log(costs)
+    if (costStore.calcPlanePartCosts > 0) {
+        costs = costs + Number(costStore.calcPlanePartCosts)
+    }
 
+    console.log(costs)
     return costs;
 });
 

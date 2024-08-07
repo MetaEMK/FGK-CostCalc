@@ -20,12 +20,12 @@ export const useCostStore = defineStore("cost", () => {
         let costs: number = 0
 
         perYearCosts.value.forEach(c => {
-            costs += c.costValue
+            const tmp = c.costValue / plane.value.expectedFlightTime
+            console.log("Test" + tmp)
+            costs = costs + tmp
         })
-        
-        if (plane.value) {
-            return costs/plane.value.expectedFlightTime
-        }
+
+        return costs
     })
 
     const calcPerHourCosts = computed(() => {
@@ -53,8 +53,9 @@ export const useCostStore = defineStore("cost", () => {
                 }
             })
 
-            return costs
         }
+
+        return costs
     })
 
     function createCost(cost: Costs) {
