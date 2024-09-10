@@ -25,14 +25,21 @@
 </style>
 
 <script lang="ts" setup>
+import { Plane } from '@/data/plane';
+import { Costs } from '@/data/costs';
 import { useCostStore } from '@/stores/cost.store';
 import { ref } from 'vue';
 
 const costStore = useCostStore();
-const impData = ref({});
+const impData = ref<ExportData>();
+
+interface ExportData {
+  plane: Plane,
+  items: Costs[],
+}
 
 const exportData = () => {
-    const expData = {
+    const expData: ExportData = {
         plane: costStore.plane,
         items: costStore.allCosts
     };
@@ -57,8 +64,8 @@ const importData = async () => {
             const reader = new FileReader();
             reader.onload = (e) => {
                 try {
-                    const jsonData = JSON.parse(e.target.result);
-                    impData.value = jsonData;
+                    const jsonData = JSON.parse(e.target?.result as string);
+                    impData.value = jsonData as ExportData;
                     costStore.plane = impData.value.plane
                     costStore.allCosts = impData.value.items
                 } catch (error) {

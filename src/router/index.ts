@@ -13,6 +13,7 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   extendRoutes: setupLayouts,
 })
+
 router.addRoute({
   path: "/costinfo/:id",
   name: "costInfo",

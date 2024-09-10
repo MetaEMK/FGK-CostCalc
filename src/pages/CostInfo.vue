@@ -22,10 +22,10 @@
         </v-row>
         <v-row v-if="selectedType.type === CostType.PLANE_PART_COST">
           <v-col cols="12" md="6">
-            <v-text-field v-model="formData.tbo" type="number" label="TBO in Stunden" required inputmode="numeric" />
+            <v-text-field v-model="(formData as PlaneParts).tbo" type="number" label="TBO in Stunden" required inputmode="numeric" />
           </v-col>
           <v-col cols="12" md="6">
-            <v-text-field v-model="formData.maxYears" type="number" label="maximale Laufzeit in Jahren" required inputmode="numeric" />
+            <v-text-field v-model="(formData as PlaneParts).maxYears" type="number" label="maximale Laufzeit in Jahren" required inputmode="numeric" />
           </v-col>
         </v-row>
         <v-divider class="my-4"></v-divider>
@@ -104,7 +104,7 @@ onMounted(() => {
   const id = route.params.id;
 
   if (id) {
-    c = costStore.getCostById(id);
+    c = costStore.getCostById(Number(id));
   } else if (props.cost?.id) {
     c = costStore.getCostById(props.cost.id);
   }
